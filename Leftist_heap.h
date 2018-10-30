@@ -5,11 +5,11 @@
  *  - Select the current calendar term and enter the year
  *  - List students with whom you had discussions and who helped you
  *
- * uWaterloo User ID:  uwuserid @uwaterloo.ca
+ * uWaterloo User ID:  a293pate@edu.uwaterloo.ca
  * Submitted for ECE 250
  * Department of Electrical and Computer Engineering
  * University of Waterloo
- * Calender Term of Submission:  (Winter|Spring|Fall) 201N
+ * Calender Term of Submission:  Fall 2019
  *
  * By submitting this file, I affirm that
  * I am the author of all modifications to
@@ -71,8 +71,6 @@ heap_size( 0 ) {
 	// does nothing
 }
 
-
-
 template <typename Type>
 Leftist_heap<Type>::~Leftist_heap() {
 	clear();  // might as well use it...
@@ -84,16 +82,56 @@ void Leftist_heap<Type>::swap( Leftist_heap<Type> &heap ) {
 	std::swap( heap_size, heap.heap_size );
 }
 
+template<typename Type>
+bool Leftist_heap<Type>::empty() const {
+	if (heap_size == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
 
+template<typename Type>
+int Leftist_heap<Type>::size() const {
+	return heap_size;
+}
 
-// Your implementation here
-// STRONG HINT:  Write a default definition of each function, even if
-// it only returns the default value (false, 0, or Type()).
-//
-// Once you have done this, you can proceed and implement the member functions
-// one at a time.  If you do not, and just start implementing the member
-// functions so that you can't compile and test your function, good luck. :-)
+template<typename Type>
+int Leftist_heap<Type>::null_path_length() const {
+	if (empty()) {
+		return -1;
+	}
 
+	return int(); // TODO:
+}
+
+template<typename Type>
+Type Leftist_heap<Type>::top() const {
+	if (empty()) {
+		throw underflow();
+	}
+	return root_node->retrieve();
+}
+
+template<typename Type>
+int Leftist_heap<Type>::count(const Type &) const {
+	return int(); //TODO:
+}
+
+template<typename Type>
+void Leftist_heap<Type>::push(const Type &) {
+	return int();
+}
+
+template<typename Type>
+Type Leftist_heap<Type>::pop() {
+	return Type();
+}
+
+template<typename Type>
+void Leftist_heap<Type>::clear() {
+
+}
 // You can modify this function however you want:  it will not be tested
 
 template <typename T>
