@@ -32,6 +32,8 @@
 #endif
 
 #include "Leftist_node.h"
+#include <ostream>
+#include "Exception.h"
 
 template <typename Type>
 class Leftist_heap {
@@ -84,7 +86,7 @@ void Leftist_heap<Type>::swap( Leftist_heap<Type> &heap ) {
 
 template<typename Type>
 bool Leftist_heap<Type>::empty() const {
-	if (heap_size == 0) {
+	if (this->heap_size <= 0) {
 		return true;
 	} else {
 		return false;
@@ -93,44 +95,62 @@ bool Leftist_heap<Type>::empty() const {
 
 template<typename Type>
 int Leftist_heap<Type>::size() const {
-	return heap_size;
+	return this->heap_size;
 }
 
 template<typename Type>
 int Leftist_heap<Type>::null_path_length() const {
-	if (empty()) {
+	if (this->empty()) {
 		return -1;
 	}
-
-	return int(); // TODO:
+	return root_node->null_path_length();
 }
 
 template<typename Type>
 Type Leftist_heap<Type>::top() const {
-	if (empty()) {
+	if (this->empty()) {
 		throw underflow();
 	}
 	return root_node->retrieve();
 }
 
 template<typename Type>
-int Leftist_heap<Type>::count(const Type &) const {
-	return int(); //TODO:
+int Leftist_heap<Type>::count(const Type & obj) const {
+	if(this->empty()){
+		return 0;
+	}
+	return this->root_node->count(obj);
 }
 
 template<typename Type>
-void Leftist_heap<Type>::push(const Type &) {
-	return int();
+void Leftist_heap<Type>::push(const Type & obj) {
+	Leftist_node<Type> * n = new Leftist_node<Type>(obj);
+	this->root_node->push(n, root_node);
+	this->heap_size = this->heap_size + 1;
 }
 
 template<typename Type>
 Type Leftist_heap<Type>::pop() {
-	return Type();
+	if(empty()){
+		throw underflow();
+	}
+
+	Leftist_node<Type> * temp_left = this->root_node->left();
+	Type value = root_node->retrieve();
+	Leftist_node<Type> * temp_right = this->root_node->right();
+
+	delete this->root_node;
+	this->root_node = temp_left;
+	this->root_node->push(temp_right, this->root_node);
+	this->heap_size = this->heap_size -1;
+	return value;
 }
 
 template<typename Type>
 void Leftist_heap<Type>::clear() {
-
+	this->root_node->clear();
+	this->root_node = nullptr;
+	this->heap_size = 0;
 }
 // You can modify this function however you want:  it will not be tested
 

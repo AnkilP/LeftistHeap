@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/LeftistHeap.dir/Leftist_heap_double_driver.cpp.o CMakeFiles/LeftistHeap.dir/Leftist_heap_int_driver.cpp.o  -o LeftistHeap 
